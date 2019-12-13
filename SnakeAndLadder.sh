@@ -2,12 +2,15 @@
 
 echo "Welcome to Snake and Ladder."
 
-position=0
+positionP1=0
+positionP2=0
 diceNumber=0
 counter=1
 
 function getResult () {
+	diceNumber=$(( RANDOM % 6 + 1 ))
 	nextMove=$(( RANDOM % 3 ))
+	position=$1
 	case $nextMove in
 		2 )
 			position=$(( $position - $diceNumber ));;
@@ -16,25 +19,43 @@ function getResult () {
 		0 )
 			;;
 	esac
+	echo $position
 }
 
 function isOnBoard () {
-        if [ $position -lt 0 ]
+        if [ $1 -lt 0 ]
         then
                 position=0
-        elif [ $position -gt 100 ]
+        elif [ $1 -gt 100 ]
         then
                 position=$(( $position - $diceNumber ))
-        fi
+	else
+		position=$1
+	fi
+	echo $position
 }
 
 function main () {
-	while (( $position >= 0 && $position <100 ))
+	while [[ $positionP1 -ge 0 && $positionP1 -le 100 && $positionP2 -ge 0 && $positionP2 -le 100 ]]
 	do
-		diceNumber=$(( RANDOM % 6 + 1 ))
-		getResult $diceNumber
-		isOnBoard
-		echo "Dice $counter : $position"
+		positionP1=$( getResult $positionP1 )
+		positionP1=$( isOnBoard $positionP1 )
+		echo "Player 1 : Dice $counter : $positionP1"
+		if [ $positionP1 -eq 100 ]
+		then
+			echo "Player 1 won"
+			break
+		fi
+
+		positionP2=$( getResult $positionP2 )
+		positionP2=$( isOnBoard $positionP2 )
+		echo "Player 2 : Dice $counter : $positionP2"
+		if [ $positionP2 -eq 100 ]
+		then
+			echo "Player 2 won"
+			break
+		fi
+
 		((counter++))
 	done
 }
