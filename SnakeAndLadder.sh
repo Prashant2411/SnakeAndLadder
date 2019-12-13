@@ -3,19 +3,27 @@
 echo "Welcome to Snake and Ladder."
 
 position=0
-
-diceNumber=$(( RANDOM % 6 + 1 ))
+diceNumber=0
 
 function getResult () {
 	nextMove=$(( RANDOM % 3 ))
 	case $nextMove in
 		2 )
-			position=$(( $position - diceNumber ));;
+			position=$(( $position - $diceNumber ));;
 		1 )
-			position=$(( $position + diceNumber ));;
+			position=$(( $position + $diceNumber ));;
 		0 )
 			;;
 	esac
 }
 
-getResult
+function main () {
+	while (( $position >= 0 && $position <100 ))
+	do
+		diceNumber=$(( RANDOM % 6 + 1 ))
+		getResult $diceNumber
+		isOnBoard
+	done
+}
+
+main
