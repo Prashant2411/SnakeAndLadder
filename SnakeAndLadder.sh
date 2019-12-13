@@ -36,7 +36,7 @@ function isOnBoard () {
 }
 
 function main () {
-	while [[ $positionP1 -ge 0 && $positionP1 -le 100 && $positionP2 -ge 0 && $positionP2 -le 100 ]]
+	while true
 	do
 		positionP1=$( getResult $positionP1 )
 		positionP1=$( isOnBoard $positionP1 )
