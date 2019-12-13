@@ -17,12 +17,23 @@ function getResult () {
 	esac
 }
 
+function isOnBoard () {
+        if [ $position -lt 0 ]
+        then
+                position=0
+        elif [ $position -gt 100 ]
+        then
+                position=$(( $position - $diceNumber ))
+        fi
+}
+
 function main () {
 	while (( $position >= 0 && $position <100 ))
 	do
 		diceNumber=$(( RANDOM % 6 + 1 ))
 		getResult $diceNumber
 		isOnBoard
+		echo $position
 	done
 }
 
