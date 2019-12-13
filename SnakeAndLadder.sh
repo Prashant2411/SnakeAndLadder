@@ -4,6 +4,7 @@ echo "Welcome to Snake and Ladder."
 
 position=0
 diceNumber=0
+counter=1
 
 function getResult () {
 	nextMove=$(( RANDOM % 3 ))
@@ -33,7 +34,8 @@ function main () {
 		diceNumber=$(( RANDOM % 6 + 1 ))
 		getResult $diceNumber
 		isOnBoard
-		echo $position
+		echo "Dice $counter : $position"
+		((counter++))
 	done
 }
 
