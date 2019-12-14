@@ -2,6 +2,8 @@
 
 echo "Welcome to Snake and Ladder."
 
+LAST_POSITION=100
+
 positionP1=0
 positionP2=0
 diceNumber=0
@@ -41,7 +43,7 @@ function main () {
 		positionP1=$( getNextPosition $positionP1 )
 		positionP1=$( isOnBoard $positionP1 )
 		echo "Player 1 : Dice $counter : $positionP1"
-		if [ $positionP1 -eq 100 ]
+		if [ $positionP1 -eq $LAST_POSITION ]
 		then
 			echo "Player 1 won"
 			break
@@ -50,7 +52,7 @@ function main () {
 		positionP2=$( getNextPosition $positionP2 )
 		positionP2=$( isOnBoard $positionP2 )
 		echo "Player 2 : Dice $counter : $positionP2"
-		if [ $positionP2 -eq 100 ]
+		if [ $positionP2 -eq $LAST_POSITION ]
 		then
 			echo "Player 2 won"
 			break
