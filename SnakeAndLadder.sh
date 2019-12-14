@@ -7,7 +7,7 @@ positionP2=0
 diceNumber=0
 counter=1
 
-function getResult () {
+function getNextPosition () {
 	diceNumber=$(( RANDOM % 6 + 1 ))
 	nextMove=$(( RANDOM % 3 ))
 	position=$1
@@ -38,7 +38,7 @@ function isOnBoard () {
 function main () {
 	while true
 	do
-		positionP1=$( getResult $positionP1 )
+		positionP1=$( getNextPosition $positionP1 )
 		positionP1=$( isOnBoard $positionP1 )
 		echo "Player 1 : Dice $counter : $positionP1"
 		if [ $positionP1 -eq 100 ]
@@ -47,7 +47,7 @@ function main () {
 			break
 		fi
 
-		positionP2=$( getResult $positionP2 )
+		positionP2=$( getNextPosition $positionP2 )
 		positionP2=$( isOnBoard $positionP2 )
 		echo "Player 2 : Dice $counter : $positionP2"
 		if [ $positionP2 -eq 100 ]
