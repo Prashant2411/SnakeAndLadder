@@ -37,27 +37,26 @@ function isOnBoard () {
 	echo $position
 }
 
+function getWinner() {
+	if [ $1 -eq $LAST_POSITION ]
+	then
+		echo "$2 won"
+		exit
+	fi
+}
+
 function main () {
-	while true
+	while [[ $positionP1 -lt $LAST_POSITION && $positionP2 -lt $LAST_POSITION ]]
 	do
 		positionP1=$( getNextPosition $positionP1 )
 		positionP1=$( isOnBoard $positionP1 )
 		echo "Player 1 : Dice $counter : $positionP1"
-		if [ $positionP1 -eq $LAST_POSITION ]
-		then
-			echo "Player 1 won"
-			break
-		fi
+		getWinner $positionP1 Player1
 
 		positionP2=$( getNextPosition $positionP2 )
 		positionP2=$( isOnBoard $positionP2 )
 		echo "Player 2 : Dice $counter : $positionP2"
-		if [ $positionP2 -eq $LAST_POSITION ]
-		then
-			echo "Player 2 won"
-			break
-		fi
-
+		getWinner $positionP2 Player2
 		((counter++))
 	done
 }
